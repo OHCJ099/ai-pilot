@@ -58,7 +58,7 @@ ai-pilot compare "解释 JavaScript 闭包"
 
 如果这个工具对你有帮助，欢迎请作者喝杯咖啡：
 
-[![爱发电](https://img.shields.io/badge/爱发电-支持作者-pink)](https://afdian.com/a/OHCJ099)
+[![爱发电](https://img.shields.io/badge/爱发电-支持作者-pink)](https://ifdian.net/a/fengan666)
 
 ## License
 

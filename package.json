@@ -12,6 +12,10 @@
     "prepublishOnly": "npm run build"
   },
   "keywords": ["ai", "claude", "gemini", "codex", "deepseek", "reasonix", "cli", "coding-agent"],
+  "funding": {
+    "type": "individual",
+    "url": "https://afdian.com/a/OHCJ099"
+  },
   "author": "OHCJ099",
   "license": "MIT",
   "repository": {

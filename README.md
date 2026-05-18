@@ -15,7 +15,7 @@
 ## 安装
 
 ```bash
-npm install -g ai-pilot
+npm install -g @ohcj099/ai-pilot
 ```
 
 ## 使用

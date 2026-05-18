@@ -1,21 +1,7 @@
 import { execSync, spawn } from "node:child_process";
-import { existsSync, readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { existsSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
-
-const CONFIG_DIR = join(homedir(), ".ai-pilot");
-const HISTORY_FILE = join(CONFIG_DIR, "history.json");
-
-function ensureConfig() {
-  if (!existsSync(CONFIG_DIR)) mkdirSync(CONFIG_DIR, { recursive: true });
-}
-
-function saveHistory(entry: { tool: string; prompt: string; timestamp: number }) {
-  ensureConfig();
-  const history = existsSync(HISTORY_FILE) ? JSON.parse(readFileSync(HISTORY_FILE, "utf8")) : [];
-  history.push(entry);
-  writeFileSync(HISTORY_FILE, JSON.stringify(history.slice(-100), null, 2));
-}
 
 interface AITool {
   name: string;
@@ -92,21 +78,8 @@ function printStatus(installed: AITool[]) {
 function launchTool(tool: AITool, userArgs: string[]) {
   const args = [...tool.args, ...userArgs];
   console.log(`\x1b[36m▶ 启动 ${tool.description}...\x1b[0m\n`);
-  saveHistory({ tool: tool.name, prompt: userArgs.join(" ") || "(interactive)", timestamp: Date.now() });
   const child = spawn(tool.cmd, args, { stdio: "inherit", shell: true });
   child.on("exit", (code) => process.exit(code ?? 0));
-}
-
-function showHistory() {
-  ensureConfig();
-  if (!existsSync(HISTORY_FILE)) { console.log("  暂无使用记录"); return; }
-  const history = JSON.parse(readFileSync(HISTORY_FILE, "utf8"));
-  console.log("\n  最近使用记录:\n");
-  for (const h of history.slice(-10).reverse()) {
-    const date = new Date(h.timestamp).toLocaleString("zh-CN");
-    console.log(`    ${date}  ${h.tool}  ${h.prompt.slice(0, 50)}`);
-  }
-  console.log();
 }
 
 function compare(task: string, installed: AITool[]) {
@@ -189,11 +162,6 @@ if (args[0] === "help" || args[0] === "--help" || args[0] === "-h") {
 
 if (args[0] === "status") {
   printStatus(installed);
-  process.exit(0);
-}
-
-if (args[0] === "history") {
-  showHistory();
   process.exit(0);
 }
 

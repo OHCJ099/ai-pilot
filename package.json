@@ -1,6 +1,6 @@
 {
   "name": "@ohcj099/ai-pilot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "统一管理多个 AI 编程助手 (Claude Code, Gemini CLI, Codex, DeepSeek, Reasonix) — 一键切换、并行对比、智能路由",
   "type": "module",
   "bin": {
